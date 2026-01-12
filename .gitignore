@@ -50,3 +50,6 @@ Thumbs.db
 
 #VS Code Information
 *.code-workspace
+
+# Ignore local information
+local.settings.json

@@ -1,0 +1,24 @@
+# Secrets and local config (CRITICAL)
+local.settings.json
+.env
+*.user
+
+# Python local environment
+.venv/
+__pycache__/
+*.pyc
+
+# Development tools and logs
+.vscode/
+.git/
+.github/
+.funcignore
+.gitignore
+tests/
+obj/
+bin/
+
+# Large documentation
+README.md
+*.pdf
+*.png
