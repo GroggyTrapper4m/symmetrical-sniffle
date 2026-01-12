@@ -1,2 +1,2 @@
 # symmetrical-sniffle
-Comment on security on libraries with Azure's help!
+Security comments on legacy libraries with good ol' Azure's help!
