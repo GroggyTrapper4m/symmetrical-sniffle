@@ -1,4 +1,4 @@
-# Secrets and local config (CRITICAL)
+# Secrets and local config
 local.settings.json
 .env
 *.user
@@ -18,7 +18,7 @@ tests/
 obj/
 bin/
 
-# Large documentation
+# Documentation
 README.md
 *.pdf
 *.png
