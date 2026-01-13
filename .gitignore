@@ -50,6 +50,25 @@ Thumbs.db
 
 #VS Code Information
 *.code-workspace
+.vscode/
+
+# Azurite artifacts
+# Azurite artifacts
+__blobstorage__
+__queuestorage__
+__azurite_db*__.json
 
 # Ignore local information
 local.settings.json
+
+#Python Environment Information
+.python_packages
+__pycache__
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak
+
