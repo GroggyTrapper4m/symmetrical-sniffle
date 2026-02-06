@@ -24,9 +24,23 @@ def local_security_check(req: func.HttpRequest) -> func.HttpResponse:
     content = base64.b64decode(resp.json()["content"]).decode("utf-8")
     lines = content.splitlines()
     
-    vulnerability_report = []
-
-   
+    vulnerability_report_template = """
+                        <html>
+                        <head>
+                        <title>
+                         Vuln Report
+                        </title>
+                        </head>
+                        <body>
+                        <h2>Dependency Security Audit</h2>
+                        <table>
+                            <tr><th>Package</th><th>Version</th><th>Sec ID:</th><th>Issue Found</th><th>Summary (if avail)</th></tr>
+                            {table_rows}
+                        </table>
+                        </body>
+                        </html>
+                        """
+    rows = "" 
     for line in lines:
         if "==" in line:
             pkg, ver = line.strip().split("==")
@@ -39,14 +53,22 @@ def local_security_check(req: func.HttpRequest) -> func.HttpResponse:
                 if vulnerabilities:
                     logging.warning(f"{pkg}=={ver} is VULNERABLE")
                     for v in vulnerabilities:
-                        vulnerability_report.append(f"Package: {pkg} | ID: {v['id']} | Summary: {v['summary'][:100]}...")
+                            print(f"Package: {pkg} | {v['id']} | Summary: {v['summary']}")
+                            rows += f"""
+                            <tr>
+                            <td>{pkg}</td>
+                            <td>{ver}</td>
+                            <td>{v['id']}</td>
+                            <td>{v['details']}</td>
+                            <td>{v['summary']}</td>
+                            </tr>"""                    
                 else:
                     logging.info(f"{pkg}=={ver} is clean.")
             except Exception as e:
                 logging.error(f"Error checking {pkg}: {e}")
-
-    if vulnerability_report:
-        result = "VULNERABILITIES DETECTED:\n" + "\n".join(vulnerability_report)
-        return func.HttpResponse(result, status_code=200)
     
-    return func.HttpResponse("All packages passed security check.", status_code=200)
+    return func.HttpResponse(
+        vulnerability_report_template.format(table_rows=rows),
+        mimetype="text/html",
+        status_code=200
+    )
