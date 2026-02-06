@@ -6,6 +6,7 @@ import logging
 
 app = func.FunctionApp()
 
+@app.function_name(name="local_security_check")
 @app.route(route="local_security_check", auth_level=func.AuthLevel.FUNCTION)
 def local_security_check(req: func.HttpRequest) -> func.HttpResponse:
     logging.info("--- Starting Security Audit ---")
