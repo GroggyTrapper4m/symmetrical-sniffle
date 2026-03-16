@@ -7,7 +7,7 @@ name: Build and deploy Python project to Azure Function App - ghsecuritychecker
 on:
   push:
     branches:
-      - wip_001
+      - main
   workflow_dispatch:
 
 env:
