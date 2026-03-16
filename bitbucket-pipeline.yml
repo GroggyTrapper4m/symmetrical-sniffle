@@ -1,0 +1,29 @@
+# Template to mimic what is being handled via Github Actions.
+# Good starting point to test against should you ever work with Azure.
+image: python:3.12
+
+pipelines:
+  branches:
+    wip_001:
+      - step:
+          name: Build Function
+          caches:
+            - pip
+          script:
+            - python -m venv venv
+            - source venv/bin/activate
+            - pip install -r requirements.txt
+            - zip -r azure-function-release.zip . -x "venv/*" ".git/*"
+          artifacts:
+            - azure-function-release.zip
+      - step:
+          name: Deploy to Azure Functions
+          deployment: Production
+          script:
+            # Login to Azure using the Azure CLI pipe
+            - pipe: atlassian/azure-cli-run:1.4.0
+              variables:
+                AZURE_APP_ID: $AZURE_CLIENT_ID
+                AZURE_PASSWORD: $AZURE_CLIENT_SECRET
+                AZURE_TENANT_ID: $AZURE_TENANT_ID
+                CLI_COMMAND: "az functionapp deployment source config-zip -g <your-resource-group> -n <your-function-name-here> --src azure-function-release.zip"
