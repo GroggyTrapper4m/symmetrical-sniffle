@@ -24,7 +24,6 @@ More information about Azure Functions can be found online at [AZ Functions](htt
 `requirements.txt` - The example libraries this project is checking against. 
 
 ### Helpful tools for local work
-<ol>
-<li>[Azurite VS Code Extension] - (https://marketplace.visualstudio.com/items?itemName=Azurite.azurite) - Local storage to run function. </li>
-<li>[Azure Functions VS Code Extension] - (https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azurefunctions)</li>
-</ol>
+
+1. [Azurite VS Code](https://marketplace.visualstudio.com/items?itemName=Azurite.azurite) - Local storage to run your functions.
+2. [Azure Functions](https://marketplace.visualstudio.com/items?itemName=ms-azuretools.vscode-azurefunctions)
